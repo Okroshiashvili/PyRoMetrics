@@ -14,17 +14,17 @@ def _percentage_error(actual, predicted):
 
 
 def mse(actual, predicted):
-    """ Mean Squared Error """
+
     return np.mean(np.square(_error(actual, predicted)))
 
 
 def rmse(actual, predicted):
-    """ Root Mean Squared Error """
+
     return np.sqrt(mse(actual, predicted))
 
 
 def me(actual, predicted):
-    """ Mean Error """
+
     return np.mean(_error(actual, predicted))
 
 
