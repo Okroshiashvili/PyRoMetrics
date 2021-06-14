@@ -1,7 +1,6 @@
 import pytest
 
 
-def test_hello():
-    a = "Hello World!"
+def test_mse(sample_data):
 
-    assert "Hello World!" == a
+    assert all(sample_data["actual"]) == all(sample_data["predicted"])
