@@ -3,7 +3,7 @@ import pytest
 
 
 @pytest.fixture
-def sample_data():
+def data():
 
     data = {
         "actual": [544, 422, 269, 241, 424, 376, 464, 572, 254, 296],
