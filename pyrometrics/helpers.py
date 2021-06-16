@@ -34,3 +34,13 @@ def _percentage_error(actual: np.ndarray, predicted: np.ndarray):
     """
 
     return _error(actual, predicted) / (actual + EPSILON)
+
+
+def _geometric_mean(a, axis=0, dtype=None):
+
+    if not isinstance(a, np.ndarray):
+        log_a = np.log(np.array(a, dtype=dtype))
+    else:
+        log_a = np.log(a)
+
+    return np.exp(log_a.mean(axis=axis))
