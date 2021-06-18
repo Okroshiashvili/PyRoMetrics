@@ -1,7 +1,6 @@
-from demo import EPSILON
 import numpy as np
 
-from pyrometrics.helpers import _error, _percentage_error, _geometric_mean
+from pyrometrics.helpers import _error, _percentage_error, _geometric_mean, EPSILON
 
 
 def me(actual: np.ndarray, predicted: np.ndarray):
