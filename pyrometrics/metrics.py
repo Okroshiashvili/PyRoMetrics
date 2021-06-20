@@ -1,6 +1,15 @@
+from typing import Union
+
+import pandas as pd
 import numpy as np
 
-from pyrometrics.helpers import _error, _percentage_error, _geometric_mean, EPSILON
+from pyrometrics.helpers import (
+    _error,
+    _percentage_error,
+    _geometric_mean,
+    _naive_forecasting,
+    EPSILON,
+)
 
 
 def me(actual: np.ndarray, predicted: np.ndarray):
@@ -20,7 +29,7 @@ def me(actual: np.ndarray, predicted: np.ndarray):
     return np.mean(_error(actual, predicted))
 
 
-def mae(actual: np.ndarray, predicted: np.ndarray):
+def mae(actual: np.ndarray, predicted: Union[np.ndarray, pd.Series]):
     """
     MAE - Mean Absolute Error
 
@@ -35,6 +44,47 @@ def mae(actual: np.ndarray, predicted: np.ndarray):
     """
 
     return np.mean(np.abs(_error(actual, predicted)))
+
+
+def nae(actual: np.ndarray, predicted: np.ndarray):
+    """
+    NAE - Normalized Absolute Error
+
+    This is normalized version of mean of absolute error.
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+
+    Returns:
+        Normalized Absolute Error
+    """
+
+    __mae = mae(actual, predicted)
+
+    return np.sqrt(
+        np.sum(np.square(_error(actual, predicted) - __mae)) / (len(actual) - 1)
+    )
+
+
+def mase(actual: np.ndarray, predicted: np.ndarray, seasonality: int = 1):
+    """
+    MASE - Mean Absolute Scaled Error
+
+    This is a scaled version of mean absolute error
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        seasonality (int, optional): User provided seasonality for calculating benchmark forecast
+
+    Returns:
+        Mean Absolute Scaled Error
+    """
+
+    return mae(actual, predicted) / mae(
+        actual[seasonality:], _naive_forecasting(actual, seasonality)
+    )
 
 
 def mdae(actual: np.ndarray, predicted: np.ndarray):
@@ -105,6 +155,28 @@ def rmse(actual: np.ndarray, predicted: np.ndarray):
     return np.sqrt(mse(actual, predicted))
 
 
+def rmsse(actual: np.ndarray, predicted: np.ndarray, seasonality: int = 1):
+    """
+    RMSSE - Root Mean Square Scaled Error
+
+    This is scaled version of root from the mean squared error.
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        seasonality (int, optional): User provided seasonality
+
+    Returns:
+        Root Mean Square Scaled Error
+    """
+
+    q = np.abs(_error(actual, predicted)) / mae(
+        actual[seasonality:], _naive_forecasting(actual, seasonality)
+    )
+
+    return np.sqrt(np.mean(np.square(q)))
+
+
 def nrmse(actual: np.ndarray, predicted: np.ndarray):
     """
     NRMSE - Normalized Root Mean Square Error
@@ -119,6 +191,24 @@ def nrmse(actual: np.ndarray, predicted: np.ndarray):
         Normalized Root Mean Square Error
     """
     return rmse(actual, predicted) / (actual.max() - actual.min())
+
+
+def inrse(actual: np.ndarray, predicted: np.ndarray):
+    """
+    INRSE - Integral Normalized Root Squared Error
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+
+    Returns:
+        Integral Normalized Root Squared Error
+    """
+
+    return np.sqrt(
+        np.sum(np.square(_error(actual, predicted)))
+        / np.sum(np.square(actual - np.mean(actual)))
+    )
 
 
 def mpe(actual: np.ndarray, predicted: np.ndarray):
