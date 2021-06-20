@@ -260,3 +260,44 @@ def rmspe(actual: np.ndarray, predicted: np.ndarray):
     """
 
     return np.sqrt(np.mean(_percentage_error(actual, predicted)))
+
+
+def rmdspe(actual: np.ndarray, predicted: np.ndarray):
+    """
+    RMDSPE - Root Median Squared Percentage Error
+
+    This is square root from the meadian value of squared percentage error
+
+    Note: The result is not multiplied by 100
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+
+    Returns:
+        Root Median Squared Percentage Error
+    """
+
+    return np.sqrt(np.median(np.square(_percentage_error(actual, predicted))))
+
+
+def nape(actual: np.ndarray, predicted: np.ndarray):
+    """
+    NAPE - Normalized Absolute Percentage Error
+
+    This is normalized version of absolute percentage error
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+
+    Returns:
+        Normaized Absolute Percentage Error
+    """
+
+    __mape = mape(actual, predicted)
+
+    return np.sqrt(
+        np.sum(np.square(_percentage_error(actual, predicted) - __mape))
+        / (len(actual) - 1)
+    )
