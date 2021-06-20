@@ -8,6 +8,8 @@ from pyrometrics.helpers import (
     _percentage_error,
     _geometric_mean,
     _naive_forecasting,
+    _relative_error,
+    _bounded_relative_error,
     EPSILON,
 )
 
@@ -211,6 +213,9 @@ def inrse(actual: np.ndarray, predicted: np.ndarray):
     )
 
 
+# Percentage Errors
+
+
 def mpe(actual: np.ndarray, predicted: np.ndarray):
     """
     MPE - Mean Percentage Error
@@ -390,4 +395,174 @@ def nape(actual: np.ndarray, predicted: np.ndarray):
     return np.sqrt(
         np.sum(np.square(_percentage_error(actual, predicted) - __mape))
         / (len(actual) - 1)
+    )
+
+
+# Relative Errors
+
+
+def mre(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray):
+    """
+    MRE - Mean Relative Error
+
+    This is mean of relative error.
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        benchmark (np.ndarray): array of benchmark values
+
+    Returns:
+        Mean Relative Error
+    """
+
+    return np.mean(_relative_error(actual, predicted, benchmark))
+
+
+def rae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = None):
+    """
+    RAE - Relative Absolute Error
+
+    A.K.A - Approximation Error
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        benchmark (np.ndarray): array of benchmark values
+
+    Returns:
+        Relative Absolute Error
+    """
+
+    return np.sum(np.abs(actual - predicted)) / (
+        np.sum(np.abs(actual - np.mean(actual))) + EPSILON
+    )
+
+
+def mrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray):
+    """
+    MRAE - Mean Relative Absolute Error
+
+    This is the mean of relative absolute error.
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        benchmark (np.ndarray): array of benchmark values
+
+    Returns:
+        Mean Relative Absolute Error
+    """
+
+    return np.mean(np.abs(_relative_error(actual, predicted, benchmark)))
+
+
+def mdrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray):
+    """
+    MDRAE - Median Relative Absolute Error
+
+    This is median of relative absolute error.
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        benchmark (np.ndarray): array of benchmark values
+
+    Returns:
+        Median Relative Absolute Error
+    """
+
+    return np.median(np.abs(_relative_error(actual, predicted, benchmark)))
+
+
+def rrse(actual: np.ndarray, predicted: np.ndarray):
+    """
+    RRSE - Root Relative squared Error
+
+    This is square root from relative squared error.
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+
+    Returns:
+        Root Relative Squared Error
+    """
+
+    return np.sqrt(
+        np.sum(np.square(actual - predicted))
+        / np.sum(np.square(actual - np.mean(actual)))
+    )
+
+
+def gmrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = None):
+    """
+    GMRAE - Geometric Mean Relative Absolute Error
+
+    This is the geometric mean of relative absolute error.
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        benchmark (np.ndarray): array of benchmark values
+
+    Returns:
+        Geometric Mean Relative Absolute Error
+    """
+
+    return _geometric_mean(np.abs(_relative_error(actual, predicted, benchmark)))
+
+
+def mbrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = None):
+    """
+    MBRAE - Mean Bounded Relative Absolute Error
+
+    This is mean of bounded relative absolute error.
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        benchmark (np.ndarray): array of benchmark values
+
+    Returns:
+        Mean Bounded Relative Absolute Error
+    """
+
+    return np.mean(_bounded_relative_error(actual, predicted, benchmark))
+
+
+def umbrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = None):
+    """
+    UMBRAE - Unscaled Mean Bounded Relative Absolute Error
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        benchmark (np.ndarray): array of benchmark values
+
+    Returns:
+        Unscaled Mean Bounded Relative Absolute Error
+    """
+
+    __mbrae = mbrae(actual, predicted, benchmark)
+
+    return __mbrae / (1 - __mbrae)
+
+
+def mda(actual: np.ndarray, predicted: np.ndarray):
+    """
+    MDA - Mean Directional Accuracy
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+
+    Returns:
+        Mean Directional Accuracy
+    """
+
+    return np.mean(
+        (
+            np.sign(actual[1:] - actual[:-1]) == np.sign(predicted[1:] - predicted[:-1])
+        ).astype(int)
     )
