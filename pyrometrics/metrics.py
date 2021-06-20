@@ -127,6 +127,8 @@ def mpe(actual: np.ndarray, predicted: np.ndarray):
 
     This is an arithmetic average of percentage error
 
+    Note: The result is not multiplied by 100
+
     Args:
         actual (np.ndarray): array of actual values
         predicted (np.ndarray): array of predicted values
@@ -161,7 +163,9 @@ def smape(actual: np.ndarray, predicted: np.ndarray):
     """
     SMAPE - Symmetric Mean Absolute Percentage Error
 
-    This is symmetric version of mean of absolute value of percentage error.
+    This is symmetric version of mean absolute percentage error.
+
+    Note: The result is not multiplied by 100
 
     Args:
         actual (np.ndarray): array of actual values
@@ -176,3 +180,83 @@ def smape(actual: np.ndarray, predicted: np.ndarray):
         * np.abs(actual - predicted)
         / ((np.abs(actual) + np.abs(predicted)) + EPSILON)
     )
+
+
+def mdape(actual: np.ndarray, predicted: np.ndarray):
+    """
+    MDAPE - Median Absolute Percentage Error
+
+    Median value of absolute percentage error.
+
+    Note: The result is not multiplied by 100
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+
+    Returns:
+        Median Absolute Percentage Error
+    """
+
+    return np.median(np.abs(_percentage_error(actual, predicted)))
+
+
+def smdape(actual: np.ndarray, predicted: np.ndarray):
+    """
+    SMDAPE - Symmetric Median Absolute Percentage Error
+
+    This is a symmetric version of median absolute percentage error.
+
+    Note: The result is not multiplied by 100
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+
+    Returns:
+        Symmetric Median Absolute Percentage Error
+    """
+
+    return np.median(
+        2.0
+        * np.abs(actual - predicted)
+        / ((np.abs(actual) + np.abs(predicted)) + EPSILON)
+    )
+
+
+def maape(actual: np.ndarray, predicted: np.ndarray):
+    """
+    MAAPE - Mean Arctangent Absolute Percentage Error
+
+    This is mean of arctangent of absolute percentage error.
+
+    Note: The result is not multiplied by 100
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+
+    Returns:
+        Mean Arctangent Absolute Percentage Error
+    """
+
+    return np.mean(np.arctan(np.abs((actual - predicted) / (actual + EPSILON))))
+
+
+def rmspe(actual: np.ndarray, predicted: np.ndarray):
+    """
+    RMSPE - Root Mean Squared Percentage Error
+
+    This is a square root from the mean of the percentage error.
+
+    Note: The result is not multiplied by 100
+
+    Args:
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+
+    Returns:
+        Root Mean Squared Percentage Error
+    """
+
+    return np.sqrt(np.mean(_percentage_error(actual, predicted)))
