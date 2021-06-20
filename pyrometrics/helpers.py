@@ -96,7 +96,7 @@ def _relative_error(
 
     error = 0
 
-    if isinstance(benchmark, np.ndarray) or isinstance(benchmark, pd.Series):
+    if isinstance(benchmark, (np.ndarray, pd.Series)):
         error = _error(actual, predicted) / (_error(actual, benchmark) + EPSILON)
 
     elif isinstance(benchmark, int):
