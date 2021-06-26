@@ -43,7 +43,7 @@ def _percentage_error(
     return _error(actual, predicted) / (actual + EPSILON)
 
 
-def _geometric_mean(a, axis=0, dtype=None):
+def _geometric_mean(a: np.ndarray, axis: int = 0, dtype=None):
     """
     Calculates geometric average of a series
 
