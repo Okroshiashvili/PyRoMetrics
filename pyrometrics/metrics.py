@@ -1,6 +1,3 @@
-from typing import Union
-
-import pandas as pd
 import numpy as np
 
 from pyrometrics.helpers import (
@@ -14,15 +11,15 @@ from pyrometrics.helpers import (
 )
 
 
-def me(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def me(actual: np.ndarray, predicted: np.ndarray):
     """
     ME - Mean Error
 
     This is an arithmetic average of error
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Mean Error
@@ -31,15 +28,15 @@ def me(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Ser
     return np.mean(_error(actual, predicted))
 
 
-def mae(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def mae(actual: np.ndarray, predicted: np.ndarray):
     """
     MAE - Mean Absolute Error
 
     This is an arithmetic average of absolute value of error
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Mean Absolute Error
@@ -48,15 +45,15 @@ def mae(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Se
     return np.mean(np.abs(_error(actual, predicted)))
 
 
-def nae(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def nae(actual: np.ndarray, predicted: np.ndarray):
     """
     NAE - Normalized Absolute Error
 
     This is normalized version of mean of absolute error.
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Normalized Absolute Error
@@ -70,8 +67,8 @@ def nae(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Se
 
 
 def mase(
-    actual: Union[np.ndarray, pd.Series],
-    predicted: Union[np.ndarray, pd.Series],
+    actual: np.ndarray,
+    predicted: np.ndarray,
     seasonality: int = 1,
 ):
     """
@@ -80,8 +77,8 @@ def mase(
     This is a scaled version of mean absolute error
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
         seasonality (int, optional): User provided seasonality for calculating benchmark forecast
 
     Returns:
@@ -93,15 +90,15 @@ def mase(
     )
 
 
-def mdae(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def mdae(actual: np.ndarray, predicted: np.ndarray):
     """
     MDAE - Median Absolute Error
 
     This is median of absolute value of error.
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Median Absolute Error
@@ -110,15 +107,15 @@ def mdae(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.S
     return np.median(np.abs(_error(actual, predicted)))
 
 
-def gmae(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def gmae(actual: np.ndarray, predicted: np.ndarray):
     """
     GMAE - Geometric Mean Absolute Error
 
     This is a geometric mean of absolute value of error.
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Geometric Mean Absolute Error
@@ -127,15 +124,15 @@ def gmae(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.S
     return _geometric_mean(np.abs(_error(actual, predicted)))
 
 
-def mse(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def mse(actual: np.ndarray, predicted: np.ndarray):
     """
     MSE - Mean Square Error
 
     This is an arithmetic average of squared error.
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Mean Square Error
@@ -144,15 +141,15 @@ def mse(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Se
     return np.mean(np.square(_error(actual, predicted)))
 
 
-def rmse(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def rmse(actual: np.ndarray, predicted: np.ndarray):
     """
     RMSE - Root Mean Square Error
 
     This is a square root from mean of squared error.
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Root Mean Square Error
@@ -162,8 +159,8 @@ def rmse(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.S
 
 
 def rmsse(
-    actual: Union[np.ndarray, pd.Series],
-    predicted: Union[np.ndarray, pd.Series],
+    actual: np.ndarray,
+    predicted: np.ndarray,
     seasonality: int = 1,
 ):
     """
@@ -172,8 +169,8 @@ def rmsse(
     This is scaled version of root from the mean squared error.
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
         seasonality (int, optional): User provided seasonality
 
     Returns:
@@ -187,17 +184,15 @@ def rmsse(
     return np.sqrt(np.mean(np.square(q)))
 
 
-def nrmse(
-    actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]
-):
+def nrmse(actual: np.ndarray, predicted: np.ndarray):
     """
     NRMSE - Normalized Root Mean Square Error
 
     This is normalized version of root mean square error.
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Normalized Root Mean Square Error
@@ -205,15 +200,13 @@ def nrmse(
     return rmse(actual, predicted) / (actual.max() - actual.min())
 
 
-def inrse(
-    actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]
-):
+def inrse(actual: np.ndarray, predicted: np.ndarray):
     """
     INRSE - Integral Normalized Root Squared Error
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Integral Normalized Root Squared Error
@@ -228,7 +221,7 @@ def inrse(
 # Percentage Errors
 
 
-def mpe(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def mpe(actual: np.ndarray, predicted: np.ndarray):
     """
     MPE - Mean Percentage Error
 
@@ -237,8 +230,8 @@ def mpe(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Se
     Note: The result is not multiplied by 100
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Mean Percentage Error
@@ -247,7 +240,7 @@ def mpe(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Se
     return np.mean(_percentage_error(actual, predicted))
 
 
-def mape(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def mape(actual: np.ndarray, predicted: np.ndarray):
     """
     MAPE - Mean Absolute Percentage Error
 
@@ -256,8 +249,8 @@ def mape(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.S
     Note: The result is not multiplied by 100
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Mean Absolute Percentage Error
@@ -266,9 +259,7 @@ def mape(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.S
     return np.mean(np.abs(_percentage_error(actual, predicted)))
 
 
-def smape(
-    actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]
-):
+def smape(actual: np.ndarray, predicted: np.ndarray):
     """
     SMAPE - Symmetric Mean Absolute Percentage Error
 
@@ -277,8 +268,8 @@ def smape(
     Note: The result is not multiplied by 100
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Symmetric Mean Absolute Percentage Error
@@ -291,9 +282,7 @@ def smape(
     )
 
 
-def mdape(
-    actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]
-):
+def mdape(actual: np.ndarray, predicted: np.ndarray):
     """
     MDAPE - Median Absolute Percentage Error
 
@@ -302,8 +291,8 @@ def mdape(
     Note: The result is not multiplied by 100
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Median Absolute Percentage Error
@@ -312,9 +301,7 @@ def mdape(
     return np.median(np.abs(_percentage_error(actual, predicted)))
 
 
-def smdape(
-    actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]
-):
+def smdape(actual: np.ndarray, predicted: np.ndarray):
     """
     SMDAPE - Symmetric Median Absolute Percentage Error
 
@@ -323,8 +310,8 @@ def smdape(
     Note: The result is not multiplied by 100
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Symmetric Median Absolute Percentage Error
@@ -337,9 +324,7 @@ def smdape(
     )
 
 
-def maape(
-    actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]
-):
+def maape(actual: np.ndarray, predicted: np.ndarray):
     """
     MAAPE - Mean Arctangent Absolute Percentage Error
 
@@ -348,8 +333,8 @@ def maape(
     Note: The result is not multiplied by 100
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Mean Arctangent Absolute Percentage Error
@@ -358,9 +343,7 @@ def maape(
     return np.mean(np.arctan(np.abs((actual - predicted) / (actual + EPSILON))))
 
 
-def rmspe(
-    actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]
-):
+def rmspe(actual: np.ndarray, predicted: np.ndarray):
     """
     RMSPE - Root Mean Squared Percentage Error
 
@@ -369,8 +352,8 @@ def rmspe(
     Note: The result is not multiplied by 100
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Root Mean Squared Percentage Error
@@ -379,9 +362,7 @@ def rmspe(
     return np.sqrt(np.mean(_percentage_error(actual, predicted)))
 
 
-def rmdspe(
-    actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]
-):
+def rmdspe(actual: np.ndarray, predicted: np.ndarray):
     """
     RMDSPE - Root Median Squared Percentage Error
 
@@ -390,8 +371,8 @@ def rmdspe(
     Note: The result is not multiplied by 100
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Root Median Squared Percentage Error
@@ -400,15 +381,15 @@ def rmdspe(
     return np.sqrt(np.median(np.square(_percentage_error(actual, predicted))))
 
 
-def nape(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def nape(actual: np.ndarray, predicted: np.ndarray):
     """
     NAPE - Normalized Absolute Percentage Error
 
     This is normalized version of absolute percentage error
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Normaized Absolute Percentage Error
@@ -426,9 +407,9 @@ def nape(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.S
 
 
 def mre(
-    actual: Union[np.ndarray, pd.Series],
-    predicted: Union[np.ndarray, pd.Series],
-    benchmark: Union[np.ndarray, pd.Series],
+    actual: np.ndarray,
+    predicted: np.ndarray,
+    benchmark: np.ndarray,
 ):
     """
     MRE - Mean Relative Error
@@ -436,9 +417,9 @@ def mre(
     This is mean of relative error.
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
-        benchmark (Union[np.ndarray, pd.Series]): array of benchmark values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        benchmark (np.ndarray): array of benchmark values
 
     Returns:
         Mean Relative Error
@@ -447,15 +428,15 @@ def mre(
     return np.mean(_relative_error(actual, predicted, benchmark))
 
 
-def rae(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def rae(actual: np.ndarray, predicted: np.ndarray):
     """
     RAE - Relative Absolute Error
 
     A.K.A - Approximation Error
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Relative Absolute Error
@@ -467,9 +448,9 @@ def rae(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Se
 
 
 def mrae(
-    actual: Union[np.ndarray, pd.Series],
-    predicted: Union[np.ndarray, pd.Series],
-    benchmark: Union[np.ndarray, pd.Series],
+    actual: np.ndarray,
+    predicted: np.ndarray,
+    benchmark: np.ndarray,
 ):
     """
     MRAE - Mean Relative Absolute Error
@@ -477,9 +458,9 @@ def mrae(
     This is the mean of relative absolute error.
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
-        benchmark (Union[np.ndarray, pd.Series]): array of benchmark values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        benchmark (np.ndarray): array of benchmark values
 
     Returns:
         Mean Relative Absolute Error
@@ -489,9 +470,9 @@ def mrae(
 
 
 def mdrae(
-    actual: Union[np.ndarray, pd.Series],
-    predicted: Union[np.ndarray, pd.Series],
-    benchmark: Union[np.ndarray, pd.Series],
+    actual: np.ndarray,
+    predicted: np.ndarray,
+    benchmark: np.ndarray,
 ):
     """
     MDRAE - Median Relative Absolute Error
@@ -499,9 +480,9 @@ def mdrae(
     This is median of relative absolute error.
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
-        benchmark (Union[np.ndarray, pd.Series]): array of benchmark values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        benchmark (np.ndarray): array of benchmark values
 
     Returns:
         Median Relative Absolute Error
@@ -510,15 +491,15 @@ def mdrae(
     return np.median(np.abs(_relative_error(actual, predicted, benchmark)))
 
 
-def rrse(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def rrse(actual: np.ndarray, predicted: np.ndarray):
     """
     RRSE - Root Relative squared Error
 
     This is square root from relative squared error.
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Root Relative Squared Error
@@ -549,9 +530,9 @@ def gmrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = Non
 
 
 def mbrae(
-    actual: Union[np.ndarray, pd.Series],
-    predicted: Union[np.ndarray, pd.Series],
-    benchmark: Union[np.ndarray, pd.Series] = None,
+    actual: np.ndarray,
+    predicted: np.ndarray,
+    benchmark: np.ndarray = None,
 ):
     """
     MBRAE - Mean Bounded Relative Absolute Error
@@ -559,9 +540,9 @@ def mbrae(
     This is mean of bounded relative absolute error.
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
-        benchmark (Union[np.ndarray, pd.Series]): array of benchmark values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        benchmark (np.ndarray): array of benchmark values
 
     Returns:
         Mean Bounded Relative Absolute Error
@@ -571,17 +552,17 @@ def mbrae(
 
 
 def umbrae(
-    actual: Union[np.ndarray, pd.Series],
-    predicted: Union[np.ndarray, pd.Series],
-    benchmark: Union[np.ndarray, pd.Series] = None,
+    actual: np.ndarray,
+    predicted: np.ndarray,
+    benchmark: np.ndarray = None,
 ):
     """
     UMBRAE - Unscaled Mean Bounded Relative Absolute Error
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
-        benchmark (Union[np.ndarray, pd.Series]): array of benchmark values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
+        benchmark (np.ndarray): array of benchmark values
 
     Returns:
         Unscaled Mean Bounded Relative Absolute Error
@@ -592,13 +573,13 @@ def umbrae(
     return __mbrae / (1 - __mbrae)
 
 
-def mda(actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]):
+def mda(actual: np.ndarray, predicted: np.ndarray):
     """
     MDA - Mean Directional Accuracy
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): array of actual values
-        predicted (Union[np.ndarray, pd.Series]): array of predicted values
+        actual (np.ndarray): array of actual values
+        predicted (np.ndarray): array of predicted values
 
     Returns:
         Mean Directional Accuracy

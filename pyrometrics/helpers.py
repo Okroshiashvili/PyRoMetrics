@@ -7,9 +7,7 @@ import numpy as np
 EPSILON = 1e-10
 
 
-def _error(
-    actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]
-):
+def _error(actual: np.ndarray, predicted: np.ndarray):
     """
     Calculates differene between actual and predicted values.
     This is the model error.
@@ -25,9 +23,7 @@ def _error(
     return actual - predicted
 
 
-def _percentage_error(
-    actual: Union[np.ndarray, pd.Series], predicted: Union[np.ndarray, pd.Series]
-):
+def _percentage_error(actual: np.ndarray, predicted: np.ndarray):
     """
     Calculates percentage error. Note that, in denominator there is EPSILON,
     very low number to avoid zero devision.
@@ -59,7 +55,7 @@ def _geometric_mean(a: np.ndarray, axis: int = 0, dtype=None):
     return np.exp(log_a.mean(axis=axis))
 
 
-def _naive_forecasting(actual: Union[np.ndarray, pd.Series], seasonality: int = 1):
+def _naive_forecasting(actual: np.ndarray, seasonality: int = 1):
     """
     Naive forecasting method that repeats previous value
 
@@ -75,9 +71,9 @@ def _naive_forecasting(actual: Union[np.ndarray, pd.Series], seasonality: int = 
 
 
 def _relative_error(
-    actual: Union[np.ndarray, pd.Series],
-    predicted: Union[np.ndarray, pd.Series],
-    benchmark: Union[np.ndarray, pd.Series, int] = None,
+    actual: np.ndarray,
+    predicted: np.ndarray,
+    benchmark: Union[np.ndarray, int] = None,
 ):
     """
     Calculates error relative to provided benchmark
@@ -85,7 +81,7 @@ def _relative_error(
     Args:
         actual (np.ndarray): Actual value
         predicted (np.ndarray): Predicted value
-        benchmark (Union[np.ndarray, pd.Series, int], optional): User provided benchmark
+        benchmark (Union[np.ndarray, int], optional): User provided benchmark
 
     Raises:
         ValueError if benchmark is not instance of either integer, Numpy array or Pandas series
@@ -113,17 +109,17 @@ def _relative_error(
 
 
 def _bounded_relative_error(
-    actual: Union[np.ndarray, pd.Series],
-    predicted: Union[np.ndarray, pd.Series],
-    benchmark: Union[np.ndarray, pd.Series, int] = None,
+    actual: np.ndarray,
+    predicted: np.ndarray,
+    benchmark: Union[np.ndarray, int] = None,
 ):
     """
     Calculates bounded error relative to provided benchmark
 
     Args:
-        actual (Union[np.ndarray, pd.Series]): Actual values
-        predicted (Union[np.ndarray, pd.Series]): Predicted values
-        benchmark (Union[np.ndarray, pd.Series, int], optional): User provided benchmark.
+        actual (np.ndarray): Actual values
+        predicted (np.ndarray): Predicted values
+        benchmark (Union[np.ndarray, int], optional): User provided benchmark.
 
     Raises:
         ValueError if benchmark is not instance of either integer, Numpy array or Pandas series
