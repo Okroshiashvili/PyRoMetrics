@@ -1,6 +1,5 @@
 from typing import Union
 
-import pandas as pd
 import numpy as np
 
 from pyrometrics.helpers import (
@@ -31,7 +30,7 @@ def me(actual: np.ndarray, predicted: np.ndarray):
     return np.mean(_error(actual, predicted))
 
 
-def mae(actual: np.ndarray, predicted: Union[np.ndarray, pd.Series]):
+def mae(actual: np.ndarray, predicted: np.ndarray):
     """
     MAE - Mean Absolute Error
 
@@ -69,7 +68,11 @@ def nae(actual: np.ndarray, predicted: np.ndarray):
     )
 
 
-def mase(actual: np.ndarray, predicted: np.ndarray, seasonality: int = 1):
+def mase(
+    actual: np.ndarray,
+    predicted: np.ndarray,
+    seasonality: int = 1,
+):
     """
     MASE - Mean Absolute Scaled Error
 
@@ -157,7 +160,11 @@ def rmse(actual: np.ndarray, predicted: np.ndarray):
     return np.sqrt(mse(actual, predicted))
 
 
-def rmsse(actual: np.ndarray, predicted: np.ndarray, seasonality: int = 1):
+def rmsse(
+    actual: np.ndarray,
+    predicted: np.ndarray,
+    seasonality: int = 1,
+):
     """
     RMSSE - Root Mean Square Scaled Error
 
@@ -354,7 +361,7 @@ def rmspe(actual: np.ndarray, predicted: np.ndarray):
         Root Mean Squared Percentage Error
     """
 
-    return np.sqrt(np.mean(_percentage_error(actual, predicted)))
+    return np.sqrt(np.mean(np.square(_percentage_error(actual, predicted))))
 
 
 def rmdspe(actual: np.ndarray, predicted: np.ndarray):
@@ -401,7 +408,7 @@ def nape(actual: np.ndarray, predicted: np.ndarray):
 # Relative Errors
 
 
-def mre(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray):
+def mre(actual: np.ndarray, predicted: np.ndarray, benchmark: Union[np.ndarray, int]):
     """
     MRE - Mean Relative Error
 
@@ -410,7 +417,7 @@ def mre(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray):
     Args:
         actual (np.ndarray): array of actual values
         predicted (np.ndarray): array of predicted values
-        benchmark (np.ndarray): array of benchmark values
+        benchmark (Union[np.ndarray, int]): array of benchmark values
 
     Returns:
         Mean Relative Error
@@ -419,7 +426,7 @@ def mre(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray):
     return np.mean(_relative_error(actual, predicted, benchmark))
 
 
-def rae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = None):
+def rae(actual: np.ndarray, predicted: np.ndarray):
     """
     RAE - Relative Absolute Error
 
@@ -428,7 +435,6 @@ def rae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = None)
     Args:
         actual (np.ndarray): array of actual values
         predicted (np.ndarray): array of predicted values
-        benchmark (np.ndarray): array of benchmark values
 
     Returns:
         Relative Absolute Error
@@ -439,7 +445,7 @@ def rae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = None)
     )
 
 
-def mrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray):
+def mrae(actual: np.ndarray, predicted: np.ndarray, benchmark: Union[np.ndarray, int]):
     """
     MRAE - Mean Relative Absolute Error
 
@@ -448,7 +454,7 @@ def mrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray):
     Args:
         actual (np.ndarray): array of actual values
         predicted (np.ndarray): array of predicted values
-        benchmark (np.ndarray): array of benchmark values
+        benchmark (Union[np.ndarray, int]): array of benchmark values
 
     Returns:
         Mean Relative Absolute Error
@@ -457,7 +463,11 @@ def mrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray):
     return np.mean(np.abs(_relative_error(actual, predicted, benchmark)))
 
 
-def mdrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray):
+def mdrae(
+    actual: np.ndarray,
+    predicted: np.ndarray,
+    benchmark: Union[np.ndarray, int],
+):
     """
     MDRAE - Median Relative Absolute Error
 
@@ -466,7 +476,7 @@ def mdrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray):
     Args:
         actual (np.ndarray): array of actual values
         predicted (np.ndarray): array of predicted values
-        benchmark (np.ndarray): array of benchmark values
+        benchmark (Union[np.ndarray, int]): array of benchmark values
 
     Returns:
         Median Relative Absolute Error
@@ -495,7 +505,9 @@ def rrse(actual: np.ndarray, predicted: np.ndarray):
     )
 
 
-def gmrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = None):
+def gmrae(
+    actual: np.ndarray, predicted: np.ndarray, benchmark: Union[np.ndarray, int] = None
+):
     """
     GMRAE - Geometric Mean Relative Absolute Error
 
@@ -504,7 +516,7 @@ def gmrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = Non
     Args:
         actual (np.ndarray): array of actual values
         predicted (np.ndarray): array of predicted values
-        benchmark (np.ndarray): array of benchmark values
+        benchmark (Union[np.ndarray, int]): array of benchmark values
 
     Returns:
         Geometric Mean Relative Absolute Error
@@ -513,7 +525,11 @@ def gmrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = Non
     return _geometric_mean(np.abs(_relative_error(actual, predicted, benchmark)))
 
 
-def mbrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = None):
+def mbrae(
+    actual: np.ndarray,
+    predicted: np.ndarray,
+    benchmark: Union[np.ndarray, int] = None,
+):
     """
     MBRAE - Mean Bounded Relative Absolute Error
 
@@ -522,7 +538,7 @@ def mbrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = Non
     Args:
         actual (np.ndarray): array of actual values
         predicted (np.ndarray): array of predicted values
-        benchmark (np.ndarray): array of benchmark values
+        benchmark (Union[np.ndarray, int]): array of benchmark values
 
     Returns:
         Mean Bounded Relative Absolute Error
@@ -531,14 +547,18 @@ def mbrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = Non
     return np.mean(_bounded_relative_error(actual, predicted, benchmark))
 
 
-def umbrae(actual: np.ndarray, predicted: np.ndarray, benchmark: np.ndarray = None):
+def umbrae(
+    actual: np.ndarray,
+    predicted: np.ndarray,
+    benchmark: Union[np.ndarray, int] = None,
+):
     """
     UMBRAE - Unscaled Mean Bounded Relative Absolute Error
 
     Args:
         actual (np.ndarray): array of actual values
         predicted (np.ndarray): array of predicted values
-        benchmark (np.ndarray): array of benchmark values
+        benchmark (Union[np.ndarray, int]): array of benchmark values
 
     Returns:
         Unscaled Mean Bounded Relative Absolute Error
