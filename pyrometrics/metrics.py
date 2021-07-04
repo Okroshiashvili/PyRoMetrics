@@ -2,14 +2,14 @@ from typing import Union
 
 import numpy as np
 
-from pyrometrics.helpers import (
+from pyrometrics._helpers import (
     _error,
     _percentage_error,
     _geometric_mean,
     _naive_forecasting,
     _relative_error,
     _bounded_relative_error,
-    EPSILON,
+    _EPSILON,
 )
 
 
@@ -280,7 +280,7 @@ def smape(actual: np.ndarray, predicted: np.ndarray):
     return np.mean(
         2.0
         * np.abs(actual - predicted)
-        / ((np.abs(actual) + np.abs(predicted)) + EPSILON)
+        / ((np.abs(actual) + np.abs(predicted)) + _EPSILON)
     )
 
 
@@ -322,7 +322,7 @@ def smdape(actual: np.ndarray, predicted: np.ndarray):
     return np.median(
         2.0
         * np.abs(actual - predicted)
-        / ((np.abs(actual) + np.abs(predicted)) + EPSILON)
+        / ((np.abs(actual) + np.abs(predicted)) + _EPSILON)
     )
 
 
@@ -342,7 +342,7 @@ def maape(actual: np.ndarray, predicted: np.ndarray):
         Mean Arctangent Absolute Percentage Error
     """
 
-    return np.mean(np.arctan(np.abs((actual - predicted) / (actual + EPSILON))))
+    return np.mean(np.arctan(np.abs((actual - predicted) / (actual + _EPSILON))))
 
 
 def rmspe(actual: np.ndarray, predicted: np.ndarray):
@@ -441,7 +441,7 @@ def rae(actual: np.ndarray, predicted: np.ndarray):
     """
 
     return np.sum(np.abs(actual - predicted)) / (
-        np.sum(np.abs(actual - np.mean(actual))) + EPSILON
+        np.sum(np.abs(actual - np.mean(actual))) + _EPSILON
     )
 
 
