@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 
-EPSILON = 1e-10
+_EPSILON = 1e-10
 
 
 def _error(actual: np.ndarray, predicted: np.ndarray):
@@ -25,7 +25,7 @@ def _error(actual: np.ndarray, predicted: np.ndarray):
 
 def _percentage_error(actual: np.ndarray, predicted: np.ndarray):
     """
-    Calculates percentage error. Note that, in denominator there is EPSILON,
+    Calculates percentage error. Note that, in denominator there is _EPSILON,
     very low number to avoid zero devision.
 
     Args:
@@ -36,7 +36,7 @@ def _percentage_error(actual: np.ndarray, predicted: np.ndarray):
         Percentage error NOT multiplied by 100
     """
 
-    return _error(actual, predicted) / (actual + EPSILON)
+    return _error(actual, predicted) / (actual + _EPSILON)
 
 
 def _geometric_mean(a: np.ndarray, axis: int = 0, dtype=None):
@@ -93,11 +93,11 @@ def _relative_error(
     error = 0
 
     if isinstance(benchmark, (np.ndarray, pd.Series)):
-        error = _error(actual, predicted) / (_error(actual, benchmark) + EPSILON)
+        error = _error(actual, predicted) / (_error(actual, benchmark) + _EPSILON)
 
     elif isinstance(benchmark, int):
         error = _error(actual[benchmark:], predicted[benchmark:]) / (
-            _error(actual[benchmark:], _naive_forecasting(actual, benchmark)) + EPSILON
+            _error(actual[benchmark:], _naive_forecasting(actual, benchmark)) + _EPSILON
         )
 
     else:
@@ -146,4 +146,4 @@ def _bounded_relative_error(
             "Benchmark should be either integer, Numpy Ndarray or Pandas Series"
         )
 
-    return abs_error / (abs_error + abs_error_benchmark + EPSILON)
+    return abs_error / (abs_error + abs_error_benchmark + _EPSILON)

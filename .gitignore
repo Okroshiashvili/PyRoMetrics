@@ -104,10 +104,3 @@ dmypy.json
 
 # IDE specific
 .vscode
-demo.py
-
-# Temporary ignores
-scorings.py
-distances.py
-STAFF_TO_ADD
-data.py
